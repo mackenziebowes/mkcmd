@@ -2,6 +2,8 @@
 
 A remote node executable for scaffolding other remote node executables with sensible defaults.
 
+**Version:** 0.2.0 | See [CHANGELOG.md](./CHANGELOG.md) for version history.
+
 ## Features
 
 - **Interactive Project Setup** - Prompts for project name, target directory, and description using `@clack/prompts`
@@ -106,4 +108,4 @@ npm publish
 
 This project was created using `bun init` in bun v1.2.13. [Bun](https://bun.sh) is a fast all-in-one JavaScript runtime.
 
-See [AGENTS.md](./AGENTS.md) for development guidelines and [RETRO.md](./RETRO.md) for session retrospective.
+See [AGENTS.md](./AGENTS.md) for development guidelines, [CHANGELOG.md](./CHANGELOG.md) for version history.

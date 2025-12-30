@@ -1,8 +1,7 @@
-import { promptProjectDetails, ProjectPrompts } from "./prompt-project";
+import { promptProjectDetails } from "./prompt-project";
 import { scaffoldProject } from "./scaffold-project";
 import { scaffoldCore } from "./scaffold-core";
 import log from "../core/log";
-import { config } from "../config";
 
 export async function orchestrateScaffold() {
   const prompts = await promptProjectDetails();
