@@ -1,5 +1,5 @@
 {
-  "name": "mkcmd",
+  "name": "@mbsi/mkcmd",
   "version": "0.2.1",
   "main": "./dist/index.js",
   "module": "./dist/index.js",
