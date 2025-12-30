@@ -32,11 +32,23 @@ project-name/
 
 ## Installation
 
+### For Development
+
 ```bash
 bun install
 ```
 
+### From npm (after publishing)
+
+```bash
+npm install -g mkcmd
+# or
+bun install -g mkcmd
+```
+
 ## Usage
+
+### Development
 
 ```bash
 # Show help
@@ -49,10 +61,46 @@ bun run src/index.ts --version
 bun run src/index.ts init
 ```
 
+### Using Built Distribution
+
+```bash
+# Build for Bun runtime
+bun run build
+bun dist/index.js --help
+
+# Build standalone executable
+bun run build:exe
+./dist/mkcmd --help
+```
+
+### After Installation (from npm)
+
+```bash
+mkcmd --help
+mkcmd init
+```
+
 The `init` command will prompt you for:
 - Project name
 - Target directory (defaults to `./<project-name>`)
 - Project description
+
+## Building for npm
+
+To build and prepare for publishing:
+
+```bash
+# Build the bundled JS file (requires Bun runtime)
+bun run build
+
+# Build standalone executable (works without Bun)
+bun run build:exe
+
+# Publish to npm
+npm publish
+```
+
+**Note**: The default build (`bun run build`) produces a bundled JS file that requires Bun to run. The standalone executable (`bun run build:exe`) works independently but is platform-specific.
 
 ## Development
 

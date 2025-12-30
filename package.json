@@ -1,16 +1,19 @@
 {
   "name": "mkcmd",
-  "version": "0.1.0",
-  "module": "index.ts",
+  "version": "0.2.0",
+  "main": "./dist/index.js",
+  "module": "./dist/index.js",
   "type": "module",
-  "private": true,
   "bin": {
-    "mkcmd": "./src/index.ts"
+    "mkcmd": "./dist/index.js"
+  },
+  "scripts": {
+    "build": "bun build --target=bun --outfile=dist/index.js src/index.ts",
+    "build:exe": "bun build --compile --outfile=dist/mkcmd src/index.ts",
+    "prepack": "bun run build"
   },
   "devDependencies": {
-    "@types/bun": "latest"
-  },
-  "peerDependencies": {
+    "@types/bun": "latest",
     "typescript": "^5"
   },
   "dependencies": {
