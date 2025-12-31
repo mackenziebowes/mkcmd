@@ -1,18 +1,21 @@
-import { join } from "node:path";
-import { readdir } from "node:fs/promises";
-import { fileURLToPath } from "node:url";
-import { writeFileTuple } from "../core/helpers/file-utils";
+import { join, dirname } from "node:path";
+import { existsSync } from "node:fs";
+import { mkdir, writeFile } from "node:fs/promises";
+import { cwd } from "node:process";
+import { core } from "../data/core";
 
-const currentDir = join(fileURLToPath(import.meta.url), "../..");
-const sourceCoreDir = join(currentDir, "src", "core");
+const currentDir = join(cwd());
 
 export async function scaffoldCore(targetDir: string) {
-  const files = await readdir(sourceCoreDir);
-
-  for (const file of files) {
-    if (file.endsWith(".ts")) {
-      const content = await Bun.file(join(sourceCoreDir, file)).text();
-      await writeFileTuple([targetDir, `src/core/${file}`, content]);
+  const combinedPath = join(currentDir, targetDir);
+  console.dir(combinedPath);
+  for (const file of core) {
+    const relativePath = file.location.replace(/^\.\//, "");
+    const parentDir = join(combinedPath, dirname(relativePath));
+    console.dir({ parentDir });
+    if (!existsSync(parentDir)) {
+      mkdir(parentDir, { recursive: true });
     }
+    writeFile(join(combinedPath, relativePath), file.content(), "utf8");
   }
 }

@@ -7,6 +7,17 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+
+## [0.2.2] - 2025-12-30
+
+### Added
+- `src/core/helpers/stringifier.ts` to codegen before building
+- `prebuild` script to dynamically update the code located in data/core at build time.
+- `src/data/core.ts` is generated / regenerated at before building for use in dist
+
+### Fixed
+- `src/functions/scaffold-core.ts` doesn't try to pull data that doesn't exist anymore :^)
+
 ## [0.2.1] - 2025-12-30
 ### Added
 - `CHANGELOG.md` for tracking changes
@@ -28,7 +39,6 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Build system with `bun build --target=bun`
 - Build scripts: `build`, `build:exe`, `prepack`
 - npm package preparation (removed `private: true`)
-
 
 ### Changed
 - Moved `typescript` from peerDependencies to devDependencies

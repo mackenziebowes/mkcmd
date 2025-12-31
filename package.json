@@ -1,6 +1,6 @@
 {
   "name": "@mbsi/mkcmd",
-  "version": "0.2.1",
+  "version": "0.2.2",
   "main": "./dist/index.js",
   "module": "./dist/index.js",
   "type": "module",
@@ -8,6 +8,7 @@
     "mkcmd": "./dist/index.js"
   },
   "scripts": {
+    "prebuild": "bun run src/core/helpers/stringifier.ts",
     "build": "bun build --target=bun --outfile=dist/index.js src/index.ts",
     "build:exe": "bun build --compile --outfile=dist/mkcmd src/index.ts",
     "prepack": "bun run build"
