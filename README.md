@@ -130,4 +130,4 @@ See LICENSE file for details.
 
 ---
 
-**Version:** See `npm info @mbsi/mkcmd version` or run `mkcmd --version` after installation.
+**Version:** See `npm info @mbsi/mkcmd version`, `npx @mbsi/mkcmd --version`, or run `mkcmd --version` after installation.
