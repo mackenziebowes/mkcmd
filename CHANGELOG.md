@@ -14,9 +14,14 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - `src/core/helpers/stringifier.ts` to codegen before building
 - `prebuild` script to dynamically update the code located in data/core at build time.
 - `src/data/core.ts` is generated / regenerated at before building for use in dist
+- `README.md` - Rewrote to make sense for display on NPM store as NPX package
 
 ### Fixed
 - `src/functions/scaffold-core.ts` doesn't try to pull data that doesn't exist anymore :^)
+- `src/core/cli.ts` doesn't try to read the version from the user's computer anymore (hopefully)
+
+### Moved
+- Original `README.md` moved to `src/README.md` - it's for devs, anyways.
 
 ## [0.2.1] - 2025-12-30
 ### Added

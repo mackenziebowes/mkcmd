@@ -47,7 +47,8 @@ export async function runCLI(argv = Bun.argv.slice(2)) {
   }
 
   if (["-v", "--version"].includes(name)) {
-    const pkgText = await Bun.file(join(process.cwd(), "package.json")).text();
+    const pkgPath = join(import.meta.dir, "..", "package.json");
+    const pkgText = await Bun.file(pkgPath).text();
     const pkg = JSON.parse(pkgText);
     log.multi.info([
       {

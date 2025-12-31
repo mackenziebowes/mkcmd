@@ -1,84 +1,37 @@
 # mkcmd
 
-A remote node executable for scaffolding other remote node executables with sensible defaults.
-
-**Version:** 0.2.0 | See [CHANGELOG.md](./CHANGELOG.md) for version history.
+A CLI tool for scaffolding new CLI projects with sensible defaults. Create command-line tools with TypeScript, Bun runtime, and a solid core structure out of the box.
 
 ## Features
 
-- **Interactive Project Setup** - Prompts for project name, target directory, and description using `@clack/prompts`
-- **Full CLI Scaffold** - Generates a complete CLI project structure with configuration files
-- **Core Utilities Included** - Ships with `file-builder.ts` and `file-utils.ts` for dynamic code generation
-- **TypeScript & Bun** - Pre-configured TypeScript settings and Bun runtime support
-- **Dynamic Core Copying** - Automatically copies all core CLI files to your new project
+- **Interactive Setup** - Prompts for project name, location, and description
+- **Complete CLI Framework** - Generates a working CLI with command registration, logging, and helpers
+- **TypeScript + Bun** - Pre-configured with TypeScript and Bun runtime support
+- **Core Utilities** - Includes `FileBuilder` for dynamic code generation and file utilities
+- **Extensible** - Easy to add your own commands
 
-## What Gets Scaffolding
+> [!WARNING]
+> While you can *run* the program in without Bun, the source code itself **depends on Bun** for development and building.
 
-When you run `mkcmd init`, it creates:
+## Run remotely
 
-```
-project-name/
-├── src/
-│   ├── core/
-│   │   ├── cli.ts          # CLI framework with command registration
-│   │   ├── log.ts          # Logging helpers (single/multi info/warn/err, title)
-│   │   ├── file-builder.ts # Indentation-aware file builder
-│   │   └── file-utils.ts   # Path caching and file writing utilities
-│   ├── commands/
-│   │   └── index.ts        # Command registration hook
-│   └── config.ts           # Project configuration
-├── package.json
-├── tsconfig.json
-└── README.md
+```bash
+npx @mbsi/mkcmd init
+# or
+bun @mbsi/mkcmd init
 ```
 
 ## Installation
 
-### For Development
-
 ```bash
-bun install
-```
-
-### From npm (after publishing)
-
-```bash
-npm install -g mkcmd
+npm install -g @mbsi/mkcmd
 # or
-bun install -g mkcmd
+bun install -g @mbsi/mkcmd
 ```
 
-## Usage
-
-### Development
+## Quick Start
 
 ```bash
-# Show help
-bun run src/index.ts --help
-
-# Show version
-bun run src/index.ts --version
-
-# Initialize a new CLI project
-bun run src/index.ts init
-```
-
-### Using Built Distribution
-
-```bash
-# Build for Bun runtime
-bun run build
-bun dist/index.js --help
-
-# Build standalone executable
-bun run build:exe
-./dist/mkcmd --help
-```
-
-### After Installation (from npm)
-
-```bash
-mkcmd --help
 mkcmd init
 ```
 
@@ -87,25 +40,94 @@ The `init` command will prompt you for:
 - Target directory (defaults to `./<project-name>`)
 - Project description
 
-## Building for npm
+## What Gets Scaffolding
 
-To build and prepare for publishing:
+After running `mkcmd init`, you'll have a complete CLI project:
 
-```bash
-# Build the bundled JS file (requires Bun runtime)
-bun run build
-
-# Build standalone executable (works without Bun)
-bun run build:exe
-
-# Publish to npm
-npm publish
+```
+my-cli/
+├── src/
+│   ├── core/
+│   │   ├── cli.ts              # CLI framework with command registration
+│   │   ├── log.ts              # Logging helpers (single/multi info/warn/err, title)
+│   │   └── helpers/
+│   │       ├── file-builder.ts # Indentation-aware file builder
+│   │       └── file-utils.ts   # Path and file writing utilities
+│   ├── commands/
+│   │   └── index.ts            # Command registration hook
+│   └── config.ts               # Project configuration
+├── package.json
+├── tsconfig.json
+└── README.md
 ```
 
-**Note**: The default build (`bun run build`) produces a bundled JS file that requires Bun to run. The standalone executable (`bun run build:exe`) works independently but is platform-specific.
+## Usage
 
-## Development
+### Running Your New CLI
 
-This project was created using `bun init` in bun v1.2.13. [Bun](https://bun.sh) is a fast all-in-one JavaScript runtime.
+```bash
+cd my-cli
+bun install
+bun run src/index.ts --help
+```
 
-See [AGENTS.md](./AGENTS.md) for development guidelines, [CHANGELOG.md](./CHANGELOG.md) for version history.
+### Adding Commands
+
+Commands are registered in `src/commands/index.ts`. Here's the pattern:
+
+```typescript
+import { registerCommand } from "../core/cli";
+
+registerCommand({
+  name: "greet",
+  description: "Say hello",
+  instructions: "Pass a name to greet",
+  run: async (args: string[]) => {
+    const name = args[0] || "world";
+    console.log(`Hello, ${name}!`);
+  }
+});
+```
+
+Then run:
+
+```bash
+bun run src/index.ts greet
+bun run src/index.ts greet Alice
+```
+
+### Using the File Builder
+
+The included `FileBuilder` helps generate code files dynamically:
+
+```typescript
+import { FileBuilder } from "./core/helpers/file-builder";
+
+const fb = new FileBuilder();
+fb.addLine("export function hello() {");
+fb.addLine('  console.log("Hello!");', 1);
+fb.addLine("}");
+const code = fb.build();
+```
+
+## CLI Flags
+
+After installation, `mkcmd` supports:
+
+```bash
+mkcmd --help      # Show help
+mkcmd --version   # Show version
+```
+
+## Requirements
+
+- Bun runtime (for running the generated project)
+- Node.js 16+ (for installation via npm)
+
+## License
+
+See LICENSE file for details.
+
+---
+
+**Version:** See `npm info @mbsi/mkcmd version` or run `mkcmd --version` after installation.
