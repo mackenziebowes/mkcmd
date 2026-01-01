@@ -2,7 +2,7 @@
 
 A remote node executable for scaffolding other remote node executables with sensible defaults.
 
-**Version:** 0.3.0 | See [CHANGELOG.md](./CHANGELOG.md) for version history.
+**Version:** 0.3.1 | See [CHANGELOG.md](./CHANGELOG.md) for version history.
 
 ## Features
 
@@ -85,6 +85,7 @@ mkcmd init
 ```
 
 The `init` command will prompt you for:
+
 - Project name
 - Target directory (defaults to `./<project-name>`)
 - Project description
