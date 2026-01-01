@@ -11,7 +11,7 @@ A CLI tool for scaffolding new CLI projects with sensible defaults. Create comma
 - **Extensible** - Easy to add your own commands
 
 > [!WARNING]
-> While you can *run* the program in without Bun, the source code itself **depends on Bun** for development and building.
+> While you can *run* the program in without Bun, the source code itself **depends on Bun** for development and building
 
 ## Run remotely
 

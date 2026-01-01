@@ -2,7 +2,7 @@
 
 A remote node executable for scaffolding other remote node executables with sensible defaults.
 
-**Version:** 0.2.2 | See [CHANGELOG.md](./CHANGELOG.md) for version history.
+**Version:** 0.2.4 | See [CHANGELOG.md](./CHANGELOG.md) for version history.
 
 ## Features
 
@@ -23,9 +23,9 @@ project-name/
 │   │   ├── cli.ts              # CLI framework with command registration
 │   │   ├── log.ts              # Logging helpers (single/multi info/warn/err, title)
 │   │   └── helpers/
-                file-builder.ts # Indentation-aware file builder
-                file-utils.ts   # Path caching and file writing utilities
-                stringifer.ts
+│   │       ├── file-builder.ts # Indentation-aware file builder
+│   │       ├── file-utils.ts   # Path caching and file writing utilities
+│   │       └── stringifer.ts
 │   ├── commands/
 │   │   └── index.ts        # Command registration hook
 │   └── config.ts           # Project configuration

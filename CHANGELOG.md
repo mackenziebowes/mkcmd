@@ -7,6 +7,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.2.4] - 2026-1-1
+
+### Fixed
+- `src/functions/scaffold-core.ts` - using `cwd` to handle folder creation, matching the relative pathing intimated by the clack prompt masking.
+- `src/functions/scaffold-project.ts` - same as above
+- `src/README.md` - finished styling directory markup
+
 ## [0.2.3] - 2025-12-30
 
 ### Fixed
