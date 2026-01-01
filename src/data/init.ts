@@ -10,7 +10,21 @@ export const commands_init = () => {
 
 export const config_init = (about: string) => {
   const file = new FileBuilder();
-  file.addLine(`export const config = {`, 0);
+  file.addLine(`import { join } from "node:path";`);
+  file.addEmptyLine();
+  file.addLine(`export interface WatchConfig {`);
+  file.addLine(`name: string;`, 1);
+  file.addLine(`type: "dir" | "file";`, 1);
+  file.addLine(`sourcePath: string;`, 1);
+  file.addLine(`outputPath: string;`, 1);
+  file.addLine(`}`);
+  file.addEmptyLine();
+  file.addLine(`type Config = {`);
+  file.addLine(`about_text: string;`, 1);
+  file.addLine(`more_info_text: string;`, 1);
+  file.addLine(`watchConfigs: WatchConfig[];`, 1);
+  file.addLine(`}`);
+  file.addLine(`export const config: Config = {`, 0);
   file.addLine(`about_text:`, 2);
   file.addLine(`"${about}",`, 1);
   file.addLine(`more_info_text:`, 2);
@@ -18,6 +32,14 @@ export const config_init = (about: string) => {
     `"See https://github.com/mackenziebowes/mkcmd for more details.",`,
     1,
   );
+  file.addLine(`watchConfigs: [`, 1);
+  file.addLine(`{`, 2);
+  file.addLine(`name: "core",`, 3);
+  file.addLine(`type: "dir",`, 3);
+  file.addLine(`sourcePath: join(".", "src", "core"),`, 3);
+  file.addLine(`outputPath: join(".", "src", "data", "core.ts"),`, 3);
+  file.addLine(`},`, 2);
+  file.addLine(`],`, 1);
   file.addLine(`};`, 0);
   return file.build();
 };

@@ -52,7 +52,8 @@ my-cli/
 │   │   ├── log.ts              # Logging helpers (single/multi info/warn/err, title)
 │   │   └── helpers/
 │   │       ├── file-builder.ts # Indentation-aware file builder
-│   │       └── file-utils.ts   # Path and file writing utilities
+│   │       ├── file-utils.ts   # Path and file writing utilities
+│   │       └── stringifier.ts  # Dynamic template code generation
 │   ├── commands/
 │   │   └── index.ts            # Command registration hook
 │   └── config.ts               # Project configuration

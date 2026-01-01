@@ -2,6 +2,7 @@ import { promptProjectDetails } from "./prompt-project";
 import { scaffoldProject } from "./scaffold-project";
 import { scaffoldCore } from "./scaffold-core";
 import log from "../core/log";
+import { scaffoldRest } from "./scaffold-rest";
 
 export async function orchestrateScaffold() {
   const prompts = await promptProjectDetails();
@@ -11,6 +12,8 @@ export async function orchestrateScaffold() {
 
   await scaffoldCore(prompts.targetDir);
   log.single.info("Core", "Core files copied");
+  await scaffoldRest(prompts.targetDir);
+  log.single.info("Rest", "All files copied");
 
   log.multi.info([
     { t: "Success", m: "Project scaffolded successfully!" },

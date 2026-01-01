@@ -7,9 +7,25 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
-## [0.2.4] - 2026-1-1
+## [0.3.0] - 2026-1-1
+
+### Added
+
+- `WatchConfig` interface in `src/config.ts` for defining watch targets
+- Support for both `"dir"` and `"file"` types in watch configurations
+- `scaffold-rest.ts` function for handling arbitrary watch targets
+- `src/data/index.ts` for centralized data exports
+
+### Changed
+
+- `stringifier.ts` now reads from `config.watchConfigs` instead of hardcoded paths
+- `stringifier.ts` supports watching individual files and multiple directories
+- `parseFolder` renamed and refactored to support both directory and file processing
+- `stringifier.ts` currently only supports typescript and md files - other file types may need special file handling.
+- `README.md` to match current export structure.
 
 ### Fixed
+The following are marked under 0.2.4 in git, but are released in 0.3.0+
 - `src/functions/scaffold-core.ts` - using `cwd` to handle folder creation, matching the relative pathing intimated by the clack prompt masking.
 - `src/functions/scaffold-project.ts` - same as above
 - `src/README.md` - finished styling directory markup

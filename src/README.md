@@ -2,7 +2,7 @@
 
 A remote node executable for scaffolding other remote node executables with sensible defaults.
 
-**Version:** 0.2.4 | See [CHANGELOG.md](./CHANGELOG.md) for version history.
+**Version:** 0.3.0 | See [CHANGELOG.md](./CHANGELOG.md) for version history.
 
 ## Features
 
