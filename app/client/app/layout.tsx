@@ -9,6 +9,7 @@ const shareTechMono = Share_Tech_Mono({
 });
 
 export const metadata: Metadata = {
+    metadataBase: new URL("https://mkcmd.mackenziebowes.com"),
     title: "mkcmd - CLI Scaffolding for Agentic AI",
     description: "Generate type-safe boilerplates, argument parsers, and help menus instantly. Optimized for human developers and LLM function calling.",
 };
