@@ -118,7 +118,7 @@ description: |
 |-----|----------|
 | `padding: 20px` | `p-5` |
 | `margin: 10px 0` | `my-2.5` |
-| `border: 1px solid var(--color)` | `border border-[var(--color)]` |
+| `border: 1px solid var(--color)` | `border border-(--color)` |
 | `display: flex; gap: 20px` | `flex gap-5` |
 | `grid-template-columns: repeat(3, 1fr)` | `grid grid-cols-3` |
 | `border-radius: 8px` | `rounded-lg` |

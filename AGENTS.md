@@ -8,21 +8,30 @@ Only facts observed in the repository are documented. If something is not listed
 
 ## Project type
 
+This is a monorepo with two packages:
+- **cli/** - The mkcmd CLI tool (TypeScript/Bun)
+- **app/** - Web app documenting this project (to be added)
+
 - Language: TypeScript (TS config present)
 - Runtime: Bun (README and shebang in src/index.ts)
 - Package manager / runner: bun (README instructs `bun install` and `bun run index.ts`)
 
-Files of interest: package.json, tsconfig.json, src/ (source root).
+Files of interest: cli/package.json, cli/tsconfig.json, cli/src/ (source root).
 
 ---
 
 ## How to run (observed)
 
-- Install dependencies: `bun install` (README)
-- Run the CLI: `bun run index.ts` (README)
+From the repository root:
+- Install all dependencies: `bun install`
+- Run the CLI: `bun run --cwd cli index.ts` or `cd cli && bun run index.ts`
+
+From cli/ directory:
+- Install dependencies: `bun install`
+- Run the CLI: `bun run index.ts`
 
 Notes:
-- The main entrypoint is `src/index.ts`. It has a bun shebang: `#!/usr/bin/env bun`.
+- The main entrypoint is `cli/src/index.ts`. It has a bun shebang: `#!/usr/bin/env bun`.
 - Running the binary/TS file starts the CLI which expects a command name as first argument.
 
 ---
@@ -46,35 +55,42 @@ Notes:
 
 ## Project structure (observed)
 
-- src/
-  - index.ts         — program entry (calls registerCommands() and runCLI())
-  - config.ts        — small config object (about_text, more_info_text)
-  - core/
-    - cli.ts         — CLI framework, Command type, registerCommand, runCLI
-    - log.ts         — logging helpers (single/multi info/warn/err, title with figlet)
-  - commands/
-    - index.ts       — expected place to register project commands (currently empty)
-  - functions/       — present but empty in this snapshot
-  - data/            — present but contents not inspected (no files shown)
+- cli/
+  - src/
+    - index.ts         — program entry (calls registerCommands() and runCLI())
+    - config.ts        — small config object (about_text, more_info_text)
+    - core/
+      - cli.ts         — CLI framework, Command type, registerCommand, runCLI
+      - log.ts         — logging helpers (single/multi info/warn/err, title with figlet)
+    - commands/
+      - index.ts       — expected place to register project commands
+    - functions/       — scaffold and orchestration functions
+    - data/            — data modules (core, init, etc.)
+  - package.json       — CLI package config with dependencies and scripts
+  - tsconfig.json      — strict TypeScript settings (noEmit, ESNext, bundler resolution)
+  - README.md          — install/run instructions (bun install, bun run index.ts)
+  - CHANGELOG.md       — version history
+  - .npmignore         — files to exclude from npm package
 
-Top-level:
-- package.json       — minimal, shows dependencies and scripts not defined
-- tsconfig.json      — strict TypeScript settings (noEmit, ESNext, bundler resolution)
-- README.md          — install/run instructions (bun install, bun run index.ts)
+Root:
+- package.json         — monorepo workspace config
+- AGENTS.md            — this file
 
 ---
 
-## Dependencies (observed in package.json)
+## Dependencies (observed in cli/package.json)
 
 - runtime dependencies:
+  - @clack/prompts
   - figlet
   - @types/figlet (type definitions)
 - devDependencies:
   - @types/bun
-- peerDependencies:
   - typescript ^5
 
-No scripts (npm/bun scripts) observed in package.json.
+Scripts:
+- `bun run build` - builds to dist/index.js
+- `bun run build:exe` - builds standalone executable
 
 ---
 
@@ -119,16 +135,16 @@ Example (based on code patterns):
 ## Gotchas / non-obvious items (observed)
 
 - Running with Node (without Bun) may not work since README and scripts rely on Bun and package.json references a TypeScript module directly.
-- `runCLI` imports `../../package.json` when responding to `-v/--version`. That path is a relative import resolved from `src/core/cli.ts` at runtime; when running with Bun from `src/index.ts` this resolves to the repository root package.json.
-- `registerCommands()` is currently empty — the repository includes the hook but no commands. Agents adding commands must ensure that `src/commands/index.ts` registers them so they are available from CLI.
-- There are no unit tests; run manual verification by invoking `bun run index.ts <command>`.
+- `runCLI` imports `../../package.json` when responding to `-v/--version`. That path is a relative import resolved from `src/core/cli.ts` at runtime; when running with Bun from `src/index.ts` this resolves to the CLI package's package.json (cli/package.json).
+- `registerCommands()` is currently empty — the repository includes the hook but no commands. Agents adding commands must ensure that `cli/src/commands/index.ts` registers them so they are available from CLI.
+- There are no unit tests; run manual verification by invoking `bun run --cwd cli index.ts <command>`.
 
 ---
 
 ## Recommended agent checklist (based only on observed files)
 
-- Read `src/core/cli.ts` and `src/core/log.ts` before modifying CLI behaviour.
-- When adding commands, implement and call `registerCommand(...)` and update `src/commands/index.ts` to import/register them.
+- Read `cli/src/core/cli.ts` and `cli/src/core/log.ts` before modifying CLI behaviour.
+- When adding commands, implement and call `registerCommand(...)` and update `cli/src/commands/index.ts` to import/register them.
 - Run `bun install` and `bun run index.ts` locally to verify runtime behaviour (README).
 - Do not assume npm/Node scripts exist — package.json has no scripts defined.
 - If adding build steps or tests, add explicit scripts to package.json and document them here.
@@ -137,14 +153,14 @@ Example (based on code patterns):
 
 ## Files to inspect when working on this repo
 
-- src/index.ts
-- src/core/cli.ts
-- src/core/log.ts
-- src/commands/index.ts
-- package.json
-- tsconfig.json
-- CHANGELOG.md
-- README.md
+- cli/src/index.ts
+- cli/src/core/cli.ts
+- cli/src/core/log.ts
+- cli/src/commands/index.ts
+- cli/package.json
+- cli/tsconfig.json
+- cli/CHANGELOG.md
+- cli/README.md
 
 ---
 
@@ -163,10 +179,10 @@ Example (based on code patterns):
 ### npm publishing workflow
 
 ```bash
-# 1. Update CHANGELOG.md - move [Unreleased] items to new version
-# 2. Update package.json version (follow semver)
+# 1. Update cli/CHANGELOG.md - move [Unreleased] items to new version
+# 2. Update cli/package.json version (follow semver)
 # 3. push to github
-# 4. npm publish
+# 4. cd cli && npm publish
 ```
 
 The `prepack` script runs automatically during `npm publish`, so `bun run build` is not strictly required but recommended to verify the build before publishing.

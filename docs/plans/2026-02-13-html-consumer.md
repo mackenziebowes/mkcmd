@@ -295,8 +295,8 @@ From `variant/white-concept-landing.html`:
 
 | CSS | Tailwind |
 |-----|----------|
-| `border: 1px solid var(--color)` | `border border-[var(--color)]` |
-| `border-bottom: 2px solid var(--x)` | `border-b-2 border-[var(--x)]` |
+| `border: 1px solid var(--color)` | `border border-(--color)` |
+| `border-bottom: 2px solid var(--x)` | `border-b-2 border-(--x)` |
 | `border-radius: 8px` | `rounded-lg` |
 
 ### Typography
@@ -313,8 +313,8 @@ From `variant/white-concept-landing.html`:
 
 | CSS | Tailwind |
 |-----|----------|
-| `color: var(--chalk-white)` | `text-[var(--chalk-white)]` |
-| `background: var(--blueprint-bg)` | `bg-[var(--blueprint-bg)]` |
+| `color: var(--chalk-white)` | `text-(--chalk-white)` |
+| `background: var(--blueprint-bg)` | `bg-(--blueprint-bg)` |
 
 ## Handling CSS Variables in Components
 
@@ -325,7 +325,7 @@ When converting CSS to Tailwind, preserve CSS variable references:
 <div className="bg-[#1c3b72] text-[#e6f1ff]">
 
 // Use the CSS variables from globals.css:
-<div className="bg-[var(--background)] text-[var(--foreground)]">
+<div className="bg-(--background) text-(--foreground)">
 ```
 
 For custom variables that don't map to ShadCN, add them to globals.css first.
