@@ -11,6 +11,7 @@ import {
   BlueprintArgTable,
   BlueprintCodeBlock,
 } from "@/components/themed";
+import { contentConfig } from "@/lib/contentConfig";
 
 export default function UsagePage() {
   return (
@@ -20,7 +21,7 @@ export default function UsagePage() {
         brand="MKCMD"
         subtitle="CLI Documentation"
         metadata={[
-          { label: "VERSION", value: "1.0.0" },
+          { label: "VERSION", value: contentConfig.version },
           { label: "STATUS", value: "ACTIVE" },
         ]}
       />
@@ -103,7 +104,7 @@ export default function UsagePage() {
       </BlueprintExplorerLayout>
 
     </BlueprintContainer>
-    <BlueprintFooter project="MKCMD" />
+    <BlueprintFooter project="MKCMD" revision={contentConfig.version} copyright={contentConfig.copyright} />
     </>
   );
 }
