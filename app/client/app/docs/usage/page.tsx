@@ -8,10 +8,13 @@ import {
   BlueprintDocHeader,
   BlueprintStatusPill,
   BlueprintTerminal,
+  BlueprintArgTable,
+  BlueprintCodeBlock,
 } from "@/components/themed";
 
 export default function UsagePage() {
   return (
+    <>
     <BlueprintContainer>
       <BlueprintNav
         brand="MKCMD"
@@ -39,7 +42,7 @@ export default function UsagePage() {
         />
 
         <section className="mb-16">
-          <h2 className="text-lg uppercase font-normal border-b-2 border-[var(--ink-primary)] pb-2 mb-6">
+          <h2 className="text-lg uppercase font-normal border-b-2 border-(--ink-primary) pb-2 mb-6">
             Quick Start
           </h2>
           <BlueprintTerminal
@@ -52,9 +55,55 @@ export default function UsagePage() {
             ]}
           />
         </section>
+
+        <section className="mb-16">
+          <h2 className="text-lg uppercase font-normal border-b-2 border-(--ink-primary) pb-2 mb-6">
+            Prompts Reference
+          </h2>
+          <BlueprintArgTable
+            headers={["Prompt", "Type", "Description"]}
+            rows={[
+              { Prompt: "Project name", Type: "text", Description: "Name for the new CLI (used in package.json)" },
+              { Prompt: "Target directory", Type: "text", Description: "Where to scaffold (default: ./{project-name})" },
+              { Prompt: "Description", Type: "text", Description: "Short description for package.json and README" },
+            ]}
+          />
+          <p className="mt-6 text-sm text-(--ink-secondary)">
+            <strong>Global flags:</strong> <code className="bg-(--paper) px-1">-h, --help</code> shows help,{" "}
+            <code className="bg-(--paper) px-1">-v, --version</code> prints version.
+          </p>
+        </section>
+
+        <section className="mb-16">
+          <h2 className="text-lg uppercase font-normal border-b-2 border-(--ink-primary) pb-2 mb-6">
+            Output Files
+          </h2>
+          <BlueprintCodeBlock label="PROJECT STRUCTURE">
+{`my-cli/
+├── src/
+│   ├── config.ts
+│   ├── core/
+│   │   ├── cli.ts
+│   │   ├── log.ts
+│   │   └── helpers/
+│   │       ├── file-builder.ts
+│   │       ├── stringifier.ts
+│   │       └── file-utils.ts
+│   └── commands/
+│       └── index.ts
+├── package.json
+├── tsconfig.json
+└── README.md`}
+          </BlueprintCodeBlock>
+          <p className="mt-6 text-sm text-(--ink-secondary)">
+            Create <code className="bg-(--paper) px-1">src/index.ts</code> as your entry point, then run with{" "}
+            <code className="bg-(--paper) px-1">bun run src/index.ts {"<command>"}</code>
+          </p>
+        </section>
       </BlueprintExplorerLayout>
 
-      <BlueprintFooter project="MKCMD" revision="REV-01" copyright="2026" />
     </BlueprintContainer>
+    <BlueprintFooter project="MKCMD" />
+    </>
   );
 }
