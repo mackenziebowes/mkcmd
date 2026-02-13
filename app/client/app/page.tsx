@@ -10,9 +10,34 @@ import {
 import Link from "next/link";
 import { contentConfig } from "@/lib/contentConfig";
 
+const jsonLd = {
+    "@context": "https://schema.org",
+    "@type": "SoftwareApplication",
+    name: "mkcmd",
+    description: "A remote node executable for scaffolding robust, agent-ready command line interfaces with sensible defaults. Optimized for Bun runtime with TypeScript-first architecture.",
+    applicationCategory: "DeveloperApplication",
+    operatingSystem: "Linux, macOS, Windows",
+    offers: {
+        "@type": "Offer",
+        price: "0",
+        priceCurrency: "USD",
+    },
+    author: {
+        "@type": "Person",
+        name: "Mackenzie Bowes",
+        url: "https://mackenziebowes.com",
+    },
+};
+
 export default function Home() {
     return (
         <main className="min-h-screen">
+            <script
+                type="application/ld+json"
+                dangerouslySetInnerHTML={{
+                    __html: JSON.stringify(jsonLd).replace(/</g, "\\u003c"),
+                }}
+            />
             <BlueprintContainer>
                 <BlueprintNav
                     brand="mkcmd"

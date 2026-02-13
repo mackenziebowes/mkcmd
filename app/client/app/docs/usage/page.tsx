@@ -13,9 +13,27 @@ import {
 } from "@/components/themed";
 import { contentConfig } from "@/lib/contentConfig";
 
+const jsonLd = {
+  "@context": "https://schema.org",
+  "@type": "TechArticle",
+  headline: "CLI Usage",
+  description: "Documentation for mkcmd CLI - scaffold robust, agent-ready command line interfaces with bunx @mbsi/mkcmd init",
+  author: {
+    "@type": "Person",
+    name: "Mackenzie Bowes",
+    url: "https://mackenziebowes.com",
+  },
+};
+
 export default function UsagePage() {
   return (
     <>
+    <script
+      type="application/ld+json"
+      dangerouslySetInnerHTML={{
+        __html: JSON.stringify(jsonLd).replace(/</g, "\\u003c"),
+      }}
+    />
     <BlueprintContainer>
       <BlueprintNav
         brand="MKCMD"
