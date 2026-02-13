@@ -1,0 +1,48 @@
+import { $ } from "bun";
+
+type CorsOptions = {
+  origin: string[];
+  allowHeaders?: string[];
+  allowMethods?: string[];
+  exposeHeaders?: string[];
+  maxAge?: number;
+  credentials?: boolean;
+};
+
+type Config = {
+  cors: CorsOptions;
+};
+
+const LOCAL_CONFIG: Config = {
+  cors: {
+    origin: ["http://localhost:3000"],
+    allowMethods: ["*"],
+    maxAge: 600,
+    credentials: true,
+  },
+};
+
+const PRODUCTION_CONFIG: Config = {
+  cors: {
+    origin: ["*"],
+    allowHeaders: ["*"],
+    allowMethods: ["*"],
+    maxAge: 600,
+    credentials: true,
+  },
+};
+
+export const getEnv = (): Config => {
+  const ENV_ENVIRONMENT = process.env.ENVIRONMENT;
+  switch (ENV_ENVIRONMENT) {
+    case "LOCAL":
+      return LOCAL_CONFIG;
+    case "PRODUCTION":
+      return PRODUCTION_CONFIG;
+    default:
+      const MSG = "Unknown ENVIRONMENT env variable value.";
+      console.error(MSG);
+      $`bun --print process.env`;
+      throw new Error("Application Exiting.");
+  }
+};

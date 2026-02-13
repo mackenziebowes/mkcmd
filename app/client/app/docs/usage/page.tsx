@@ -104,7 +104,7 @@ export default function UsagePage() {
       </BlueprintExplorerLayout>
 
     </BlueprintContainer>
-    <BlueprintFooter project="MKCMD" revision={contentConfig.version} copyright={contentConfig.copyright} />
+    <BlueprintFooter project="MKCMD" sheet="W-02" revision={contentConfig.version} copyright={contentConfig.copyright} />
     </>
   );
 }

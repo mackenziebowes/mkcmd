@@ -18,9 +18,9 @@ export default function Home() {
                     brand="mkcmd"
                     subtitle="CLI ARCHITECTURE SUITE"
                     metadata={[
-                        { label: "SCALE", value: "1:1" },
-                        { label: "DWG NO.", value: "A-001" },
-                        { label: "STATUS", value: "APPROVED" },
+                        { label: "SCALE", value: "GLBL" },
+                        { label: "DWG NO.", value: "W-01" },
+                        { label: "STATUS", value: "ACTIVE" },
                     ]}
                 />
 
@@ -28,7 +28,7 @@ export default function Home() {
                     <div className="flex flex-col justify-center">
                         <div className="text-(--ink-secondary) text-xs mb-2.5 flex items-center gap-2.5">
                             <span className="flex-1 h-px bg-(--ink-secondary)" />
-                            <span className="bg-[var(--paper)] px-1">HEIGHT: FLUID</span>
+                            <span className="bg-(--paper) px-1">HEIGHT: FLUID</span>
                             <span className="flex-1 h-px bg-(--ink-secondary)" />
                         </div>
 
@@ -47,8 +47,7 @@ export default function Home() {
 
                         <BlueprintTerminal
                             commands={[
-                                "bun install -g mkcmd",
-                                "mkcmd init my-cli",
+                                "bunx @mbsi/mkcmd init",
                             ]}
                             output={[
                                 "Scaffolding project structure...",
@@ -91,7 +90,7 @@ export default function Home() {
                         </div>
 
                         <div className="absolute bottom-5 w-4/5 border-b border-(--ink-secondary) text-center text-xs text-(--ink-secondary)">
-                            <span className="bg-[var(--paper)] px-1">200mm</span>
+                            <span className="bg-(--paper) px-1">200mm</span>
                         </div>
                     </div>
                 </section>
@@ -149,7 +148,7 @@ export default function Home() {
                         </ul>
                     </div>
 
-                    <div className="w-full md:w-[45%] border border-(--ink-primary) h-[200px] relative flex items-center justify-center overflow-hidden">
+                    {/*<div className="w-full md:w-[45%] border border-(--ink-primary) h-[200px] relative flex items-center justify-center overflow-hidden">
                         <div className="absolute top-2.5 left-2.5 text-xs">DETAIL C: PLUGIN ARCHITECTURE</div>
                         <div className="w-[120px] h-[80px] border border-(--ink-primary) relative flex items-center justify-center text-sm">
                             <div className="absolute -top-5 left-5 w-px h-5 border-l border-dashed border-(--ink-primary)" />
@@ -157,12 +156,13 @@ export default function Home() {
                             CORE
                         </div>
                         <div className="w-[80px] h-[50px] border border-(--ink-secondary) absolute top-[30px] left-[30px] bg-white" />
-                    </div>
+                    </div>*/}
                 </section>
             </BlueprintContainer>
 
             <BlueprintFooter
                 project="MKCMD"
+                sheet="W-01"
                 revision={contentConfig.version}
                 copyright={contentConfig.copyright}
             />
